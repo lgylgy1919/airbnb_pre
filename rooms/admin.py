@@ -78,6 +78,9 @@ class RoomAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         return obj.photos.count()
 
+    # def total_rating(self, obj):
+    #     return obj.total_rating()
+
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
