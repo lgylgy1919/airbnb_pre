@@ -1,6 +1,6 @@
 from django.db import models
-from core import models as core_models
 from django_countries.fields import CountryField
+from core import models as core_models
 
 
 class AbstarctItem(core_models.TimeStampedModel):
@@ -22,7 +22,6 @@ class RoomType(AbstarctItem):
 
     class Meta:
         verbose_name = "Room Types"
-        ordering = ["-name"]
 
 
 class Amenity(AbstarctItem):
@@ -36,6 +35,8 @@ class Amenity(AbstarctItem):
 class Facility(AbstarctItem):
 
     """ Facility Model Definition """
+
+    pass
 
     class Meta:
         verbose_name_plural = "Facilities"
@@ -99,6 +100,8 @@ class Room(core_models.TimeStampedModel):
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
-        for review in all_reviews:
-            all_ratings += review.rating_average()
-        return all_ratings / len(all_reviews)
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                all_ratings += review.rating_average()
+            return all_ratings / len(all_reviews)
+        return 0
