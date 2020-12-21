@@ -10,7 +10,7 @@ class LoginForm(forms.Form):
     )
 
     def clean(self):
-        email = self.cleanded_data.get("email")
+        email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         try:
             user = models.User.objects.get(email=email)
@@ -19,7 +19,7 @@ class LoginForm(forms.Form):
             else:
                 self.add_error("password", forms.ValidationError("Password is Wrong"))
         except models.User.DoesNotExist:
-            self.add_error("email", forms.ValidtionErro("User does not exist"))
+            self.add_error("email", forms.ValidationError("User does not exist"))
 
 
 class SignUpForm(forms.ModelForm):
